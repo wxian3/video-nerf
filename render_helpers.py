@@ -160,16 +160,9 @@ def render_path(render_poses, render_times, render_hwf, render_rgbs, chunk, rend
     if not os.path.exists(os.path.join(savedir, 'depths')):
         os.makedirs(os.path.join(savedir, 'depths'))
 
-    total_psnr_eval = 0
-    total_ssim_eval = 0
-    total_occ_eval = 0
     for i, (c2w, render_time) in enumerate(zip(tqdm(render_poses), render_times)):
         imgs_savepath = os.path.join(savedir, 'images/{:03d}.png'.format(i+render_start))
         depths_savepath = os.path.join(savedir, 'depths/{:03d}.png'.format(i+render_start))
-
-        # if os.path.exists(imgs_savepath):
-        #     print('skipped')
-        #     continue
 
         print(i, time.time() - t)
         t = time.time()

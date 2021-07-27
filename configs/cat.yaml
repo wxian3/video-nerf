@@ -6,13 +6,13 @@ dataset_type: cvd
 down_factor: 2
 N_rand: 1024
 N_samples: 64
-N_importance: 128
+N_importance: 64
 lrate_decay: 100
 lrate: 0.0005
 
 render_only: False
 render_test: False
-render_type: fix_view
+render_type: space_time
 concat_times_views: False
 train_stereo: False
 use_viewdirs: False

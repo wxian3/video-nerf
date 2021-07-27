@@ -30,11 +30,11 @@ def config_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', type=str, required=True, default='./configs/fern.yaml', help='config file (yaml) path')
     parser.add_argument("--expname", type=str, help='experiment name')
-    parser.add_argument("--basedir", type=str, default='../logs', help='where to store ckpts and logs')
-    parser.add_argument("--datadir", type=str, default='../data/cat', help='input data directory')
-    parser.add_argument("--localdir", type=str, default='../logs', help='where to store local files')
-    parser.add_argument("--testdir", type=str, default='../logs', help='where to store test files')
-    parser.add_argument("--tblogdir", type=str, default='../logs', help="where to store tensorboard logs")
+    parser.add_argument("--basedir", type=str, default='./logs', help='where to store ckpts and logs')
+    parser.add_argument("--datadir", type=str, default='./data/cat', help='input data directory')
+    parser.add_argument("--localdir", type=str, default='./logs', help='where to store local files')
+    parser.add_argument("--testdir", type=str, default='./logs', help='where to store test files')
+    parser.add_argument("--tblogdir", type=str, default='./logs', help="where to store tensorboard logs")
     parser.add_argument("--concat_times_views", action='store_true', help='concat times dimension with views dimension, otherwise concat time dimension with input pts dimension.')
 
     # training options

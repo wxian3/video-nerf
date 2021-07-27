@@ -52,13 +52,12 @@ def load_pose_file(fn):
                 halfW = int(line[0] / 2.0)
                 halfH = int(line[1] / 2.0)
                 vF = math.radians(line[15])
-                fy = halfH / math.tan(float(vF)/ 2.0)
                 pose[:, 0] = np.array(line[6:9]) # right
                 pose[:, 1] = np.array(line[9:12]) # up
                 pose[:, 2] = np.array(-line[12:15]) # backward
                 pose[:, 3] = np.array(line[3:6]) # position
                 extrinsics.append(pose)
-                intrinsics.append([fy, fy, halfW, halfH])
+                intrinsics.append(vF)
         extrinsics = np.array(extrinsics)
         intrinsics = np.array(intrinsics)
         f.close()
@@ -89,9 +88,10 @@ def load_data(local_base_dir, down_factor, scale_factor):
     poses = np.zeros((N, 4, 4), dtype=np.float32)
     poses[:, :3, :4] = extrinsics[:N, :, :]
     # store (fx, fy, cx, cy) in the last row
-    poses[:, -1, :4] = [intrinsics[-1, 0], intrinsics[-1, 1], img_height/2., img_width/2.]
-
-    hwf = [img_height, img_width, intrinsics[-1, 0], intrinsics[-1, 1]]
+    halfH, halfW = img_height/2., img_width/2.
+    fy = halfH / math.tan(float(intrinsics[-1])/ 2.0)
+    poses[:, -1, :4] = [fy, fy, halfH, halfW]
+    hwf = [img_height, img_width, fy, fy]
 
     # read disparity maps
     disp_dir = os.path.join(local_base_dir, 'depth')
