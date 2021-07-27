@@ -1,6 +1,6 @@
 expname: cat
-basedir: ../logs
-datadir: ../data/cat_1
+basedir: ./logs
+datadir: ./data/cat_1
 dataset_type: cvd
 
 down_factor: 2

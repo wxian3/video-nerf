@@ -17,7 +17,7 @@ You can download eight videos presented in the paper from [here](Google drive), 
 
 To train video NeRF on different datasets:
 ```
-python train/run_nerf.py --config configs/{DATASET}.yaml
+python run_nerf.py --config configs/{DATASET}.yaml
 ```
 For example, raplace `{DATASET}` with cat
 
@@ -25,7 +25,7 @@ Training takes 24-48 hours using 2 NVIDIA V100 GPUs.
 
 To test and render video NeRF on different datasets:
 ```
-python train/run_nerf.py --config configs/{DATASET}.yaml --render_only
+python run_nerf.py --config configs/{DATASET}.yaml --render_only
 ```
 The results are saved in `logs` folder.
 
