@@ -5,7 +5,7 @@ PyTorch implementation of paper "Space-time Neural Irradiance Fields for Free-Vi
 [[Paper]](https://arxiv.org/abs/2011.12950)
 [[Video]](https://www.youtube.com/watch?v=2tN8ghNu2sI&t=1s)
 
-<img src='./img/teaser.gif' height="260px"/>
+<img src='teaser.gif' height="260px"/>
 
 # Dependencies
 Install PyTorch 1.8 and other dependencies, type command line:
