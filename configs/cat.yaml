@@ -1,0 +1,31 @@
+expname: cat
+basedir: ../logs
+datadir: ../data/cat_1
+dataset_type: cvd
+
+down_factor: 2
+N_rand: 1024
+N_samples: 64
+N_importance: 128
+lrate_decay: 100
+lrate: 0.0005
+
+render_only: False
+render_test: False
+render_type: fix_view
+concat_times_views: False
+train_stereo: False
+use_viewdirs: False
+use_sf: False
+use_times: True
+
+raw_noise_std: 1
+no_batching: True
+no_ndc: True
+lindisp: True
+
+w_sf: 0
+w_st: 0.1
+w_zd: 0.1
+w_depth: 0.2
+
