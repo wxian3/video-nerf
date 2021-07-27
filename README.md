@@ -11,7 +11,7 @@ pip install -r requirements.txt
 ```
 
 # Dataset
-You can download eight videos presented in the paper from [here](Google drive), including camera poses and depth maps from CVD. Place the dataset under `./data/{DATASET}` and save the config file as `./configs/{DATASET}.yaml`.
+You can download eight videos presented in the paper from [here](https://drive.google.com/drive/folders/1jghs7A0OLiYyyTrW5fEt6h4IQigFd2fP?usp=sharing), including camera poses and depth maps from CVD. Place the dataset under `./data/{DATASET}` and save the config file as `./configs/{DATASET}.yaml`.
 
 # Demo
 
@@ -31,7 +31,7 @@ The results are saved in `logs` folder.
 
 # Pre-trained Models
 
-You can download the pre-trained models [here](Google drive). Place the downloaded models in ./logs/{DATASET} in order to load it.
+You can download the pre-trained models [here](https://drive.google.com/drive/folders/1Gv5M_1D0gPmfaC74nzWooJfxabVu6sxW?usp=sharing). Place the downloaded models in ./logs/{DATASET}/{CHECKPOINT}.tar in order to load it.
 
 # Custom Video
 
