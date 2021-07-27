@@ -5,13 +5,17 @@ PyTorch implementation of paper "Space-time Neural Irradiance Fields for Free-Vi
 [[Paper]](https://arxiv.org/abs/2011.12950)
 [[Video]](https://www.youtube.com/watch?v=2tN8ghNu2sI&t=1s)
 
+<img src='teaser.gif' height="260px"/>
+
 # Dependencies
+Install PyTorch 1.8 and other dependencies, type command line:
 ```
 pip install -r requirements.txt
 ```
 
 # Dataset
-You can download eight videos presented in the paper from [here](Google drive), including camera poses and depth maps from CVD. Place the dataset under `./data/{DATASET}` and save the config file as `./configs/{DATASET}.yaml`.
+
+You can download eight videos presented in the paper from [here](https://drive.google.com/drive/folders/1jghs7A0OLiYyyTrW5fEt6h4IQigFd2fP?usp=sharing), including camera poses and depth maps from CVD. Place the dataset under `./data/{DATASET}` and save the config file as `./configs/{DATASET}.yaml`.
 
 # Demo
 
@@ -27,11 +31,11 @@ To test and render video NeRF on different datasets:
 ```
 python run_nerf.py --config configs/{DATASET}.yaml --render_only
 ```
-The results are saved in `logs` folder.
+The results will be saved in `logs/{DATASET}` folder.
 
 # Pre-trained Models
 
-You can download the pre-trained models [here](Google drive). Place the downloaded models in ./logs/{DATASET} in order to load it.
+You can download the pre-trained models [here](https://drive.google.com/drive/folders/1Gv5M_1D0gPmfaC74nzWooJfxabVu6sxW?usp=sharing). Place the downloaded models in ./logs/{DATASET}/{CHECKPOINT}.tar in order to load it.
 
 # Custom Video
 
