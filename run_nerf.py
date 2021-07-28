@@ -75,8 +75,6 @@ def config_parser():
     parser.add_argument("--render_factor", type=int, default=0, help='downsampling factor to speed up rendering, set 4 or 8 for fast preview')
     parser.add_argument("--render_dir", type=str, default='final_render', help='subdirectory that stores render results')
     parser.add_argument("--render_pose_list", type=str, default='render_pose.txt', help='filename of a specifica camera trajectory input')
-    parser.add_argument("--render_start", type=int, default=0, help='specify start frame for rendering a video')
-    parser.add_argument("--render_end", type=int, default=200, help='specify end frame for rendering a video')
     parser.add_argument("--render_type", type=str, default='space_time', help='filename of a specifica camera trajectory input')
 
     # dataset options
@@ -225,9 +223,9 @@ def train(rank, args, log_dir):
 
             rgbs, disps = render_path(render_poses, render_times, render_hwf, render_rgbs, args.chunk, render_kwargs_test, gt_imgs=images, gt_depths=depths, savedir=testsavedir, render_factor=args.render_factor, render_start=args.render_start)
             if len(rgbs) > 0:
-                with open(os.path.join(testsavedir, 'video_{}_{}.mp4'.format(args.render_start, args.render_end)), 'wb') as f:
+                with open(os.path.join(testsavedir, 'video.mp4'), 'wb') as f:
                     imageio.mimwrite(f, to8b(rgbs), fps=30, quality=8, format='ffmpeg', output_params=["-f", "mp4"])
-                with open(os.path.join(testsavedir, 'disp_{}_{}.mp4'.format(args.render_start, args.render_end)), 'wb') as f:
+                with open(os.path.join(testsavedir, 'disp.mp4'), 'wb') as f:
                     imageio.mimwrite(f, disps, fps=30, quality=8, format='ffmpeg', output_params=["-f", "mp4"])
                 print('Done rendering', testsavedir)
 
@@ -521,8 +519,6 @@ def train(rank, args, log_dir):
                     writer.add_image(args.render_type+'_depth', disp_vis, global_step=global_step)
                     writer.add_image("train_depth", gt_disp_vis, global_step=global_step)
                     writer.add_image('train_rgb', to8b(target.detach().cpu().numpy()).transpose(2, 0, 1), global_step=global_step)
-                    # edge_map_vis = edge_map.unsqueeze(-1).repeat(1,1,3).detach().cpu().numpy().astype(np.uint8).transpose(2, 0, 1)
-                    # writer.add_image('edge_map', edge_map_vis, global_step=global_step)
 
                     if args.N_importance > 0:
                         img_loss0 = img2mse(ret['rgb0'], target)
