@@ -28,15 +28,18 @@ To train video NeRF on different datasets:
 ```
 python run_nerf.py --config configs/{DATASET}.yaml
 ```
-For example, raplace `{DATASET}` with cat_1
+For example, raplace `{DATASET}` with cat_1, create a config file based on the example `./configs/example.yaml`, give a unique expname and specify base directory where logs are stored.
 
-Training takes 24-48 hours using 2 NVIDIA V100 GPUs.
+Training takes 24-48 hours using 2 NVIDIA V100 GPUs. Run tensorboard to visualize the training process:
+```
+tensorboard --logdir ./logs --port 8090
+```
 
 To test and render video NeRF on different datasets:
 ```
 python run_nerf.py --config configs/{DATASET}.yaml --render_only
 ```
-The results will rendered in spiral motion using a camera trajectory from `./data/{DATASET}/render_pose.txt`, then it will be saved in `logs/{expname}` folder.
+The results will rendered in spiral motion using a camera trajectory from `./data/{DATASET}/render_pose.txt`, then it will be saved in `logs/{expname}` folder as default. 
 
 # Pre-trained Models
 
