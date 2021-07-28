@@ -28,7 +28,7 @@ To train video NeRF on different datasets:
 ```
 python run_nerf.py --config configs/{DATASET}.yaml
 ```
-For example, raplace `{DATASET}` with cat
+For example, raplace `{DATASET}` with cat_1
 
 Training takes 24-48 hours using 2 NVIDIA V100 GPUs.
 
@@ -40,7 +40,11 @@ The results will rendered in spiral motion using a camera trajectory from `./dat
 
 # Pre-trained Models
 
-You can download the pre-trained models [here](https://drive.google.com/drive/folders/1Gv5M_1D0gPmfaC74nzWooJfxabVu6sxW?usp=sharing). Place the downloaded models in ./logs/{DATASET}/{CHECKPOINT}.tar in order to load it.
+Download the pre-trained models:
+```
+bash datasets/download_pretrained_models.sh {DATASET}
+```
+Place the downloaded models in ./logs/{expname}/{CHECKPOINT}.tar in order to load it.
 
 # Custom Video
 
