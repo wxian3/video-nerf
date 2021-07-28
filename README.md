@@ -15,7 +15,12 @@ pip install -r requirements.txt
 
 # Dataset
 
-You can download eight videos presented in the paper from [here](https://drive.google.com/drive/folders/1jghs7A0OLiYyyTrW5fEt6h4IQigFd2fP?usp=sharing), including camera poses and depth maps from CVD. Place the dataset under `./data/{DATASET}` and save the config file as `./configs/{DATASET}.yaml`.
+including camera poses and depth maps from CVD. Place the dataset under `./data/{DATASET}` and save the config file as `./configs/{DATASET}.yaml`.
+Download the data for a video presented in our paper (e.g. replace `{DATASET}` with cat):
+```
+bash datasets/download_datasets.sh {DATASET}
+```
+This includes the video frames, camera poses and depth maps, and will be saved to `./datasets/{DATASET}`
 
 # Demo
 
@@ -31,7 +36,7 @@ To test and render video NeRF on different datasets:
 ```
 python run_nerf.py --config configs/{DATASET}.yaml --render_only
 ```
-The results will be saved in `logs/{DATASET}` folder.
+The results will rendered in spiral motion using a camera trajectory from `./data/{DATASET}/render_pose.txt`, then it will be saved in `logs/{expname}` folder.
 
 # Pre-trained Models
 

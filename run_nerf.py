@@ -45,8 +45,8 @@ def config_parser():
     parser.add_argument("--N_rand", type=int, default=32 * 32 * 4, help='batch size (number of random rays per gradient step)')
     parser.add_argument("--lrate", type=float, default=5e-4, help='learning rate')
     parser.add_argument("--lrate_decay", type=int, default=50, help='exponential learning rate decay (in 1000 steps)')
-    parser.add_argument("--chunk", type=int, default=1024 * 64, help='number of rays processed in parallel, decrease if running out of memory')
-    parser.add_argument("--netchunk", type=int, default=1024 * 64, help='number of pts sent through network in parallel, decrease if running out of memory')
+    parser.add_argument("--chunk", type=int, default=1024 * 32, help='number of rays processed in parallel, decrease if running out of memory')
+    parser.add_argument("--netchunk", type=int, default=1024 * 32, help='number of pts sent through network in parallel, decrease if running out of memory')
     parser.add_argument("--no_batching", action='store_true', help='only take random rays from 1 image at a time')
     parser.add_argument("--no_reload", action='store_true', help='do not reload weights from saved ckpt')
     parser.add_argument("--ft_path", type=str, default=None, help='specific weights npy file to reload for coarse network')
@@ -127,7 +127,7 @@ def train(rank, args, log_dir):
         device = torch.device("cpu")
 
     if args.num_gpus > 1:
-        dist.init_process_group("nccl", f"zeus://{args.expname}", world_size=args.num_gpus, rank=rank)
+        dist.init_process_group("nccl", world_size=args.num_gpus, rank=rank)
 
     # Load data
     images, depths, poses, times, hwf = load_data(args.datadir, args.down_factor, args.scale_factor)
@@ -221,7 +221,7 @@ def train(rank, args, log_dir):
 
             render_rgbs = torch.Tensor(render_rgbs).to(device)
 
-            rgbs, disps = render_path(render_poses, render_times, render_hwf, render_rgbs, args.chunk, render_kwargs_test, gt_imgs=images, gt_depths=depths, savedir=testsavedir, render_factor=args.render_factor, render_start=args.render_start)
+            rgbs, disps = render_path(render_poses, render_times, render_hwf, render_rgbs, args.chunk, render_kwargs_test, gt_imgs=images, gt_depths=depths, savedir=testsavedir, render_factor=args.render_factor)
             if len(rgbs) > 0:
                 with open(os.path.join(testsavedir, 'video.mp4'), 'wb') as f:
                     imageio.mimwrite(f, to8b(rgbs), fps=30, quality=8, format='ffmpeg', output_params=["-f", "mp4"])
@@ -508,7 +508,6 @@ def train(rank, args, log_dir):
                     img_loss = img2mse(ret['rgb_map'], target)
                     psnr_eval = mse2psnr(img_loss)
                     writer.add_scalar('psnr_train', psnr.detach().cpu(), global_step=global_step)
-                    writer.add_scalar('psnr_eval', psnr_eval.detach().cpu(), global_step=global_step)
 
                     if args.no_ndc:
                         disp_vis = visualize_depth(1.0 / ret['depth_map'].detach().cpu().numpy()).astype(np.uint8)[..., ::-1].transpose(2, 0, 1)
@@ -522,10 +521,7 @@ def train(rank, args, log_dir):
 
                     if args.N_importance > 0:
                         img_loss0 = img2mse(ret['rgb0'], target)
-                        psnr0_eval = mse2psnr(img_loss0)
                         writer.add_scalar('psnr0_train', psnr0.detach().cpu(), global_step=global_step)
-                        writer.add_scalar('psnr0_eval', psnr0_eval.detach().cpu(), global_step=global_step)
-
                         writer.add_image('rgb0', to8b(ret['rgb0'].detach().cpu().numpy()).transpose(2, 0, 1), global_step=global_step)
                         disp0_vis = visualize_depth(ret['disp0'].detach().cpu().numpy()).astype(np.uint8)[..., ::-1].transpose(2, 0, 1)
                         writer.add_image('disp0', disp0_vis, global_step=global_step)

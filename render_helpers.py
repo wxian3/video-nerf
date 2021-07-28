@@ -137,7 +137,7 @@ def render(num_frames, hwf, chunk=1024 * 32, rays=None, depths=None, c2w=None, t
     return all_ret
 
 
-def render_path(render_poses, render_times, render_hwf, render_rgbs, chunk, render_kwargs, gt_imgs=None, gt_depths=None, savedir=None, render_factor=0, render_start=0):
+def render_path(render_poses, render_times, render_hwf, render_rgbs, chunk, render_kwargs, gt_imgs=None, gt_depths=None, savedir=None, render_factor=0):
 
     H, W, fx, fy = render_hwf
     if render_factor != 0:
@@ -161,8 +161,8 @@ def render_path(render_poses, render_times, render_hwf, render_rgbs, chunk, rend
         os.makedirs(os.path.join(savedir, 'depths'))
 
     for i, (c2w, render_time) in enumerate(zip(tqdm(render_poses), render_times)):
-        imgs_savepath = os.path.join(savedir, 'images/{:03d}.png'.format(i+render_start))
-        depths_savepath = os.path.join(savedir, 'depths/{:03d}.png'.format(i+render_start))
+        imgs_savepath = os.path.join(savedir, 'images/{:03d}.png'.format(i))
+        depths_savepath = os.path.join(savedir, 'depths/{:03d}.png'.format(i))
 
         print(i, time.time() - t)
         t = time.time()
