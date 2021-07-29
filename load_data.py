@@ -70,6 +70,7 @@ def load_data(local_base_dir, down_factor, scale_factor):
     # load images
     print('Loading data from ', local_base_dir)
     img_dir = os.path.join(local_base_dir, 'color_full')
+
     if os.path.exists(img_dir):
         img_files = [os.path.join(img_dir, f) for f in sorted(os.listdir(img_dir)) if f.endswith('.png')]
         imgs_rgb = [imageio.imread(f)/255. for f in img_files]

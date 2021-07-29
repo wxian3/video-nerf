@@ -12,6 +12,9 @@ import random
 from tqdm import tqdm
 from nerf_helpers import *
 import torch.distributed as dist
+import torch.multiprocessing as mp
+from torch.nn.parallel import DistributedDataParallel as DDP
+from torch.nn import DataParallel as DP
 
 np.random.seed(0)
 DEBUG = False
@@ -270,8 +273,8 @@ def create_nerf(args, device):
         ckpt = torch.load(ckpt_path)
 
         start = ckpt['global_step'] + 1
-
         # Load model
+
         if dist.is_initialized():
             model.load_state_dict(ckpt['network_fn_state_dict'])
             optimizer.load_state_dict(ckpt['optimizer_state_dict'])

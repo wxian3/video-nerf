@@ -127,7 +127,7 @@ def train(rank, args, log_dir):
         device = torch.device("cpu")
 
     if args.num_gpus > 1:
-        dist.init_process_group("nccl", world_size=args.num_gpus, rank=rank)
+        dist.init_process_group("nccl", init_method="env://localhost:5678", world_size=args.num_gpus, rank=rank)
 
     # Load data
     images, depths, poses, times, hwf = load_data(args.datadir, args.down_factor, args.scale_factor)

@@ -28,11 +28,11 @@ To train video NeRF on different datasets:
 ```
 python run_nerf.py --config configs/{DATASET}.yaml
 ```
-For example, raplace `{DATASET}` with cat_1, create a config file based on the example `./configs/example.yaml`, give a unique expname and specify base directory where logs are stored.
+For example, raplace `{DATASET}` with cat_1, create a config file based on the example `./configs/example.yaml`, give a unique expname and specify a base directory where logs are stored. You can also start multi-GPU training by adding `--num_gpus`.
 
-Training takes 24-48 hours using 2 NVIDIA V100 GPUs. Run tensorboard to visualize the training process:
+Training takes 24-48 hours using 2 NVIDIA V100 GPUs. Start tensorboard and visualize the training at http://localhost:6006/:
 ```
-tensorboard --logdir ./logs --port 8090
+tensorboard --logdir ./logs
 ```
 
 To test and render video NeRF on different datasets:
@@ -47,7 +47,7 @@ Download the pre-trained models:
 ```
 bash datasets/download_pretrained_models.sh {DATASET}
 ```
-Place the downloaded models in ./logs/{expname}/{CHECKPOINT}.tar in order to load it.
+Place the downloaded models in `./logs/{expname}/{checkpoint}.tar` in order to load it.
 
 # Custom Video
 
