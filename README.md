@@ -53,11 +53,11 @@ Place the downloaded models in `./logs/{expname}/{checkpoint}.tar` in order to l
 
 If you want to run on your own video, follow these steps:
 1. Extract frames from your video and save them in `my_video/color_full`
-``
+```
 mkdir ./data/my_video && cd ./datasets/my_video 
 mkdir color_full && ffmpeg -i video.mp4 rgb/%06d.png
-``
-2. Run *COLMAP* to compute poses and save them to `my_video/input_pose.txt` in ... format (TODO)
+```
+2. Run *COLMAP* to compute poses and save them to `my_video/input_pose.txt`
 3. Compute depth maps from [CVD](https://github.com/facebookresearch/consistent_depth) or other monocular video depth estimation method. Then save it to `my_video/depth`
 4. Prepare a config file and save it to `configs/my_video.yaml`
 
